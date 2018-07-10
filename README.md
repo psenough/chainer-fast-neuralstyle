@@ -44,11 +44,7 @@ python generate.py <input_image_path> -m <model_path> -o <output_image_path> -g 
 This repo has pretrained models as an example.
 
 ```
-python generate.py sample_images/tubingen.jpg -m models/composition.model -o sample_images/output.jpg
-```
-or
-```
-python generate.py sample_images/tubingen.jpg -m models/seurat.model -o sample_images/output.jpg
+python generate.py sample_images/tubingen.jpg -m models/landscape_painting.model -o sample_images/output.jpg
 ```
 or with keep colors option
 ```
