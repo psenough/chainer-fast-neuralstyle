@@ -1,7 +1,7 @@
 # Chainer implementation of "Perceptual Losses for Real-Time Style Transfer and Super-Resolution"
 Fast artistic style transfer by using feed forward network.
 
-This is a fork based on [yusuketomoto/chainer-fast-neuralstyle](https://github.com/yusuketomoto/chainer-fast-neuralstyle). Mostly just merging [resize-conv](https://github.com/yusuketomoto/chainer-fast-neuralstyle/tree/resize-conv) and [stable-style](https://github.com/ElementAI/chainer-fast-neuralstyle/tree/stable-style), adding [gafr/chainer-fast-neuralstyle-models](https://github.com/gafr/chainer-fast-neuralstyle-models) collection. And upgrading to work with latest version of Chainer (which isn't backwards compatible with volatile's and test's anymore apparently).
+This is a fork based on [yusuketomoto/chainer-fast-neuralstyle](https://github.com/yusuketomoto/chainer-fast-neuralstyle). Mostly just merging [resize-conv](https://github.com/yusuketomoto/chainer-fast-neuralstyle/tree/resize-conv) and [stable-style](https://github.com/ElementAI/chainer-fast-neuralstyle/tree/stable-style). And upgrading to work with latest version of Chainer (which isn't backwards compatible with volatile's and test's anymore apparently).
 
 Also added a few bash scripts to help streamline some things like style transfer on video. You can find those scripts on `\bash_scripts\`
 
@@ -43,7 +43,6 @@ python generate.py <input_image_path> -m <model_path> -o <output_image_path> -g 
 
 This repo has pretrained models as an example.
 
-- example:
 ```
 python generate.py sample_images/tubingen.jpg -m models/composition.model -o sample_images/output.jpg
 ```
