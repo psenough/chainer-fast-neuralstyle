@@ -1,26 +1,28 @@
 # Chainer implementation of "Perceptual Losses for Real-Time Style Transfer and Super-Resolution"
 Fast artistic style transfer by using feed forward network.
 
-**checkout [resize-conv](https://github.com/yusuketomoto/chainer-fast-neuralstyle/tree/resize-conv) branch which provides better result.**
+This is a fork based on [yusuketomoto/chainer-fast-neuralstyle](https://github.com/yusuketomoto/chainer-fast-neuralstyle). Mostly just merging [resize-conv](https://github.com/yusuketomoto/chainer-fast-neuralstyle/tree/resize-conv) and [stable-style](https://github.com/ElementAI/chainer-fast-neuralstyle/tree/stable-style), adding [gafr/chainer-fast-neuralstyle-models](https://github.com/gafr/chainer-fast-neuralstyle-models) collection. And upgrading to work with latest version of Chainer (which isn't backwards compatible with volatile's and test's anymore apparently).
 
-<img src="https://raw.githubusercontent.com/yusuketomoto/chainer-fast-neuralstyle/master/sample_images/tubingen.jpg" height="200px">
+Also added a few bash scripts to help streamline some things like style transfer on video. You can find those scripts on `\bash_scripts\`
 
-<img src="https://raw.githubusercontent.com/yusuketomoto/chainer-fast-neuralstyle/master/sample_images/style_1.png" height="200px">
-<img src="https://raw.githubusercontent.com/yusuketomoto/chainer-fast-neuralstyle/master/sample_images/output_1.jpg" height="200px">
+## Test Environment
+[Ubuntu](https://www.ubuntu.com/desktop) 16.04
 
-<img src="https://raw.githubusercontent.com/yusuketomoto/chainer-fast-neuralstyle/master/sample_images/style_2.png" height="200px">
-<img src="https://raw.githubusercontent.com/yusuketomoto/chainer-fast-neuralstyle/master/sample_images/output_2.jpg" height="200px">
+[Python](https://developer.nvidia.com/cuda-downloads) 2.7 `sudo apt install python2.7`
 
-- input image size: 1024x768
-- process time(CPU): 17.78sec (Core i7-5930K)
-- process time(GPU): 0.994sec (GPU TitanX)
+[pip](https://pypi.org/project/pip/) 8.1.1 from /usr/lib/python2.7/dist-packages (python 2.7)
 
+[Chainer](https://chainer.org/) 4.2.0 `pip install chainer`
 
-## Requirement
-- [Chainer](https://github.com/pfnet/chainer)
-```
-$ pip install chainer
-```
+[CUDA](https://developer.nvidia.com/cuda-downloads) 9.2
+
+[cuDNN](https://developer.nvidia.com/cudnn) 7.1
+
+[cuPY](https://cupy.chainer.org/) `pip install cupy-cuda92`
+
+[MS COCO](http://cocodataset.org/) 2017 Train Images
+
+[FFMPEG](https://www.ffmpeg.org/) 2.8.14
 
 ## Prerequisite
 Download VGG16 model and convert it into smaller file so that we use only the convolutional layers which are 10% of the entire model.
@@ -30,7 +32,6 @@ sh setup_model.sh
 
 ## Train
 Need to train one image transformation network model per one style target.
-According to the paper, the models are trained on the [Microsoft COCO dataset](http://mscoco.org/dataset/#download).
 ```
 python train.py -s <style_image_path> -d <training_dataset_path> -g <use_gpu ? gpu_id : -1>
 ```
@@ -50,35 +51,17 @@ or
 ```
 python generate.py sample_images/tubingen.jpg -m models/seurat.model -o sample_images/output.jpg
 ```
-
-#### Transfer only style but not color (**--keep_colors option**)
-`python generate.py <input_image_path> -m <model_path> -o <output_image_path> -g <use_gpu ? gpu_id : -1> --keep_colors`
-
-<img src="https://raw.githubusercontent.com/yusuketomoto/chainer-fast-neuralstyle/master/sample_images/output_1.jpg" height="200px">
-<img src="https://raw.githubusercontent.com/yusuketomoto/chainer-fast-neuralstyle/master/sample_images/output_keep_colors_1.jpg" height="200px">
-
-<img src="https://raw.githubusercontent.com/yusuketomoto/chainer-fast-neuralstyle/master/sample_images/output_2.jpg" height="200px">
-<img src="https://raw.githubusercontent.com/yusuketomoto/chainer-fast-neuralstyle/master/sample_images/output_keep_colors_2.jpg" height="200px">
-
-
-## A collection of pre-trained models
-Fashizzle Dizzle created pre-trained models collection repository, [chainer-fast-neuralstyle-models](https://github.com/gafr/chainer-fast-neuralstyle-models). You can find a variety of models.
-
-## Difference from paper
-- Convolution kernel size 4 instead of 3.
-- Training with batchsize(n>=2) causes unstable result.
-
-## No Backward Compatibility
-##### Jul. 19, 2016
-This version is not compatible with the previous versions. You can't use models trained by the previous implementation. Sorry for the inconvenience!
+or with keep colors option
+```
+python generate.py <input_image_path> -m <model_path> -o <output_image_path> -g <use_gpu ? gpu_id : -1> --keep_colors
+```
 
 ## License
 MIT
 
-## Reference
-- [Perceptual Losses for Real-Time Style Transfer and Super-Resolution](http://arxiv.org/abs/1603.08155)
+## Other relevant repos to this project
+https://github.com/gafr/chainer-fast-neuralstyle-video
 
-Codes written in this repository based on following nice works, thanks to the author.
+https://github.com/rupeshs/neuralstyler
 
-- [chainer-gogh](https://github.com/mattya/chainer-gogh.git) Chainer implementation of neural-style. I heavily referenced it.
-- [chainer-cifar10](https://github.com/mitmul/chainer-cifar10) Residual block implementation is referred.
+https://github.com/6o6o/chainer-fast-neuralstyle

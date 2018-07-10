@@ -86,3 +86,6 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+vg16.model
+VGG_ILSVRC_16_layers.caffemodel
